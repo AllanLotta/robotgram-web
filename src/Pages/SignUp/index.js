@@ -1,6 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { Form, Input } from '@rocketseat/unform';
+import History from '../../services/history';
 import api from '../../services/api';
 
 function SignUp() {
@@ -8,6 +9,8 @@ function SignUp() {
     console.log(data);
     const res = await api.post('/users', data);
     console.log(res);
+    console.log('To dentro');
+    History.push('/');
   }
   return (
     <>
@@ -19,11 +22,11 @@ function SignUp() {
           <Input type="text" placeholder="Username" name="username" />
           <Input type="password" placeholder="Password" name="password" />
 
-          <button type="submit">Log In</button>
+          <button type="submit">Send</button>
         </Form>
       </div>
       <div className="auth-actions">
-        <p>Have an account?</p> <Link to="/">Log In</Link>
+        <p>Have an account?</p> <Link to="/">Sign In</Link>
       </div>
     </>
   );

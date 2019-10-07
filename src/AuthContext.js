@@ -6,17 +6,20 @@ export default function AuthProvider(props) {
   const { children } = props;
 
   const [token, setToken] = useState();
+  const [modal, setModal] = useState();
   const [posts, setPosts] = useState([]);
-
   useEffect(() => {
-    if (token === undefined) {
+    if (token != null) {
+      localStorage.setItem('token', token);
+    } else if (token == null) {
       setToken(localStorage.getItem('token'));
     }
-    localStorage.setItem('token', token);
   }, [token]);
 
   return (
-    <AuthContext.Provider value={[token, setToken, posts, setPosts]}>
+    <AuthContext.Provider
+      value={[token, setToken, posts, setPosts, modal, setModal]}
+    >
       {children}
     </AuthContext.Provider>
   );

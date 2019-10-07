@@ -13,9 +13,7 @@ function SignIn() {
     const res = await api.post('/sessions', data);
     console.log(res);
 
-    if (!token) {
-      setToken(res.data.authorization.token);
-    }
+    setToken(res.data.authorization.token);
   }
   return (
     <>

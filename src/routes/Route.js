@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
 
@@ -12,8 +12,18 @@ export default function RouteWrapper({
   isPrivate = false,
   ...rest
 }) {
+  const [signed, setSigned] = useState(true);
   const [token] = useContext(AuthContext);
-  const signed = !!token;
+  useEffect(() => {
+    if (token != null) {
+      setSigned(token);
+    }
+    if (token == null) {
+      setSigned(localStorage.getItem('token'));
+    }
+    console.log('TOKEN', token);
+  }, [token]);
+  // const token = localStorage.getItem('token');
 
   if (!signed && isPrivate) {
     return <Redirect to="/" />;
