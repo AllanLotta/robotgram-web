@@ -6,6 +6,7 @@ export default function AuthProvider(props) {
   const { children } = props;
 
   const [token, setToken] = useState();
+  const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     if (token === undefined) {
@@ -15,7 +16,7 @@ export default function AuthProvider(props) {
   }, [token]);
 
   return (
-    <AuthContext.Provider value={[token, setToken]}>
+    <AuthContext.Provider value={[token, setToken, posts, setPosts]}>
       {children}
     </AuthContext.Provider>
   );

@@ -1,28 +1,53 @@
-import React from 'react';
-
+import React, { useContext, useEffect, useState } from 'react';
+import { AuthContext } from '../../AuthContext';
 import { Container, Card } from './styles';
+import api from '../../services/api';
 
 export default function PostList() {
+  const [posts, setPosts] = useState();
+  const [token] = useContext(AuthContext);
+
+  useEffect(() => {
+    const config = {
+      headers: { Authorization: `bearer ${token}` },
+    };
+    async function getPosts() {
+      const res = await api.get('/posts', config);
+      setPosts(res.data);
+      console.log(res.data);
+    }
+    getPosts();
+  }, [token]);
+
   return (
     <Container>
-      <Card>
-        <div className="header">
-          <img
-            src="https://api.adorable.io/avatars/100/abott@adorable.png"
-            alt="avatar"
-          />
-        </div>
-        <div className="image">
-          <img
-            src="https://instagram.fmvf5-1.fna.fbcdn.net/vp/9ad683c4136458de39d49eb9eb8035d3/5E290D95/t51.2885-15/e35/71541461_2259166837516006_2419876865501821200_n.jpg?_nc_ht=instagram.fmvf5-1.fna.fbcdn.net&_nc_cat=110&se=7"
-            alt=""
-            width="100%"
-          />
-        </div>
-        <div className="description">
-          <p>allan_lotta</p> <p>description here</p>
-        </div>
-      </Card>
+      {posts ? (
+        posts.map(post => (
+          <Card key={post.id}>
+            <div className="header">
+              <img src={post.user.avatar} alt="avatar" />
+              <p>{post.user.username}</p>
+            </div>
+            <div className="image">
+              <img src={post.file.url} alt="" width="100%" />
+            </div>
+            <div className="content">
+              <p>
+                <span className="name">{post.user.username}</span>{' '}
+                {post.description}
+              </p>
+            </div>
+          </Card>
+        ))
+      ) : (
+        <>
+          <h3>
+            <strong>:( sorry,</strong> there is not to see
+          </h3>{' '}
+          <br />
+          <p>You can follow other robots to see their posts.</p>
+        </>
+      )}
     </Container>
   );
 }
