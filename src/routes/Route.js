@@ -12,7 +12,7 @@ export default function RouteWrapper({
   isPrivate = false,
   ...rest
 }) {
-  const [token, setToken] = useContext(AuthContext);
+  const [token] = useContext(AuthContext);
   const signed = !!token;
 
   if (!signed && isPrivate) {
