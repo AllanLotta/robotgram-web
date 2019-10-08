@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { AuthContext } from '../../AuthContext';
 import { Container, Card } from './styles';
 import api from '../../services/api';
@@ -25,15 +26,23 @@ export default function PostList() {
         posts.map(post => (
           <Card key={post.id}>
             <div className="header">
-              <img src={post.user.avatar} alt="avatar" />
-              <p>{post.user.username}</p>
+              <Link to={`/profile/${post.user.id}`}>
+                <img src={post.user.avatar} alt="avatar" />
+              </Link>
+              <Link to={`/profile/${post.user.id}`}>
+                <p>{post.user.username}</p>
+              </Link>
             </div>
             <div className="image">
               <img src={post.file.url} alt="" width="100%" />
             </div>
             <div className="content">
               <p>
-                <span className="name">{post.user.username}</span>{' '}
+                <span className="name">
+                  <Link to={`/profile/${post.user.id}`}>
+                    {post.user.username}
+                  </Link>
+                </span>{' '}
                 {post.description}
               </p>
             </div>

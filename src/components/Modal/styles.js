@@ -1,8 +1,10 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  height: 100%;
   position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: 999;
   background: rgba(0, 0, 0, 0.6);
   display: flex;
   flex-direction: row;
@@ -12,18 +14,21 @@ export const Container = styled.div`
 export const Content = styled.div`
   width: 300px;
   height: 300px;
+  border-radius: 10px;
   background: #fafafa;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  .item {
+  .header {
     width: 100%;
-    text-align: center;
+    text-align: end;
     padding: 10px 10px;
-    border-top: 1px solid #dbdbdb;
-    border-bottom: 1px solid #dbdbdb;
-    font-size: 15px;
-    cursor: pointer;
+    border: 1px solid #dbdbdb;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    .close {
+      font-weight: bold;
+      font-size: 18px;
+      cursor: pointer;
+    }
   }
 `;

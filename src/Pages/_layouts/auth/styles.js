@@ -60,6 +60,7 @@ export const Content = styled.div`
     justify-content: center;
     align-content: center;
     a {
+      display: unset;
       font-size: 13px;
       margin-left: 5px;
       color: #3897f0;

@@ -6,8 +6,8 @@ export default function AuthProvider(props) {
   const { children } = props;
 
   const [token, setToken] = useState();
-  const [modal, setModal] = useState();
   const [posts, setPosts] = useState([]);
+
   useEffect(() => {
     if (token != null) {
       localStorage.setItem('token', token);
@@ -17,9 +17,7 @@ export default function AuthProvider(props) {
   }, [token]);
 
   return (
-    <AuthContext.Provider
-      value={[token, setToken, posts, setPosts, modal, setModal]}
-    >
+    <AuthContext.Provider value={[token, setToken, posts, setPosts]}>
       {children}
     </AuthContext.Provider>
   );

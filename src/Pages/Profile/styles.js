@@ -15,7 +15,9 @@ export const Content = styled.div`
     display: none;
   }
   .avatar {
+    width: 200px;
     padding: 10px 10px;
+
     img {
       border-radius: 50%;
     }
@@ -57,6 +59,7 @@ export const Content = styled.div`
     }
     .name {
       margin-top: 20px;
+      margin-bottom: 10px;
       p {
         font-weight: bold;
         font-size: 15px;

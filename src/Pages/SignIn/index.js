@@ -5,14 +5,14 @@ import api from '../../services/api';
 import { AuthContext } from '../../AuthContext';
 
 function SignIn() {
-  const [token, setToken] = useContext(AuthContext);
+  const [token, setToken, userId, setUserId] = useContext(AuthContext);
 
   async function handleSubmit(data) {
     console.log(data);
 
     const res = await api.post('/sessions', data);
     console.log(res);
-
+    setUserId(res.data.id);
     setToken(res.data.authorization.token);
   }
   return (

@@ -5,7 +5,7 @@ import { AuthContext } from '../../AuthContext';
 import { Container, Content } from './styles';
 import api from '../../services/api';
 
-export default function Profile() {
+export default function Profile({ match }) {
   const [token, setToken] = useContext(AuthContext);
   const [user, setUser] = useState();
 
@@ -20,23 +20,19 @@ export default function Profile() {
       headers: { Authorization: `bearer ${token}` },
     };
     async function getUser() {
-      const res = await api.get(`users/${1}`, config);
+      const res = await api.get(`users/${match.params.id}`, config);
       console.log(res);
       setUser(res.data);
     }
     getUser();
-  }, [token]);
+  }, [match.params.id, token]);
   return (
     <Container>
       <Content>
         {user ? (
           <>
             <div className="avatar">
-              <img
-                src="https://instagram.fmvf5-1.fna.fbcdn.net/vp/62d53be12344a93d9b1408b9f9eb3339/5E299216/t51.2885-19/s150x150/64462278_610783269747600_2863412609858666496_n.jpg?_nc_ht=instagram.fmvf5-1.fna.fbcdn.net"
-                alt=""
-                width="100%"
-              />
+              <img src={user.avatar} alt="" width="100%" />
             </div>
             <div className="info">
               <div className="username">

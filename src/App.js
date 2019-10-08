@@ -5,15 +5,18 @@ import Routes from './routes';
 import history from './services/history';
 import GlobalStyle from './styles/global';
 import AuthProvider from './AuthContext';
+import ModalProvider from './ModalContext';
 
 function App() {
   return (
     <>
       <AuthProvider>
-        <Router history={history}>
-          <Routes />
-          <GlobalStyle />
-        </Router>
+        <ModalProvider>
+          <Router history={history}>
+            <Routes />
+            <GlobalStyle />
+          </Router>
+        </ModalProvider>
       </AuthProvider>
     </>
   );

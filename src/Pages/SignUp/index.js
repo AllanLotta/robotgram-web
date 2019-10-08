@@ -1,17 +1,38 @@
-import React from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import Chance from 'chance';
+import { Link } from 'react-router-dom';
 import { Form, Input } from '@rocketseat/unform';
-import History from '../../services/history';
 import api from '../../services/api';
 
-function SignUp() {
+function SignUp({ history }) {
+  const [urlBaseAvatar] = useState('https://gravatar.com/avatar/');
+  const [avatarOptions] = useState('?s=400&d=robohash&r=x');
+
   async function handleSubmit(data) {
-    console.log(data);
-    const res = await api.post('/users', data);
-    console.log(res);
-    console.log('To dentro');
-    History.push('/');
+    const random = new Chance();
+    const avatarCode = random.string({ pool: 'abcde' });
+    const urlMounted = urlBaseAvatar + avatarCode + avatarOptions;
+    console.log(urlBaseAvatar);
+    console.log(avatarCode);
+    console.log(avatarOptions);
+    const user = {
+      email: data.email,
+      fullname: data.fullname,
+      username: data.username,
+      password: data.password,
+      avatar: urlMounted,
+    };
+    try {
+      const res = await api.post('/users', user);
+      console.log(user);
+      history.push('/');
+      return data;
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
   }
+
   return (
     <>
       <div className="auth-form">
