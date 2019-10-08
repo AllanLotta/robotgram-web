@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { FaUser } from 'react-icons/fa';
 import { Container, Content } from './styles';
+import { UserContext } from '../../UserContext';
 
 export default function Header() {
+  const [userId] = useContext(UserContext);
+
   return (
     <Container>
       <Content>
@@ -10,7 +14,9 @@ export default function Header() {
           <p>Robotgram</p>
         </div>
         <div className="actions">
-          <FaUser />
+          <Link to={`/profile/${userId}`}>
+            <FaUser />
+          </Link>
         </div>
       </Content>
     </Container>

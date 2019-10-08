@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-
+import { Link } from 'react-router-dom';
 import { Container, Content } from './styles';
 import { AuthContext } from '../../AuthContext';
 
@@ -11,9 +11,17 @@ export default function Follows() {
       <Content>
         <div className="card">
           <div className="avatar">
-            <img src="" alt="" />
+            <Link to={`/profile/${27}`}>
+              <img
+                src="https://gravatar.com/avatar/cdbed?s=400&d=robohash&r=x"
+                alt=""
+                width="100%"
+              />
+            </Link>
           </div>
-          <p>Name</p>
+          <Link to={`/profile/${27}`}>
+            <p>Allan_Lotta</p>
+          </Link>
           <button type="button">Follow</button>
         </div>
       </Content>

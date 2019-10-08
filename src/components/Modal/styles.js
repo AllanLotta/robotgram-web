@@ -31,4 +31,7 @@ export const Content = styled.div`
       cursor: pointer;
     }
   }
+  .content {
+    overflow: auto;
+  }
 `;

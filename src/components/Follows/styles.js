@@ -15,24 +15,33 @@ export const Content = styled.div`
   justify-content: center;
 
   .card {
+    margin-top: 10px;
     display: flex;
     flex-direction: row;
-    justify-content: start;
+    justify-content: space-between;
+    align-items: center;
 
     .avatar {
+      margin-left: 10px;
+      width: 40px;
       img {
+        background: black;
+        border-radius: 50%;
       }
     }
     p {
+      margin-left: -70px;
+      font-weight: bold;
     }
     button {
+      margin-right: 10px;
       cursor: pointer;
-      width: 100%;
+      width: 70px;
+      height: 60%;
       border: none;
       background: transparent;
       border-radius: 4px;
-      border-top: 1px solid #dbdbdb;
-      border-bottom: 1px solid #dbdbdb;
+      border: 1px solid #dbdbdb;
       padding: 4px 4px;
       :hover {
         background: #dbdbdb;

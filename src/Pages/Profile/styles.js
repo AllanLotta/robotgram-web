@@ -56,6 +56,9 @@ export const Content = styled.div`
       display: flex;
       flex-direction: row;
       justify-content: space-between;
+      .itemCount {
+        cursor: pointer;
+      }
     }
     .name {
       margin-top: 20px;

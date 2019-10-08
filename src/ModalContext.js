@@ -5,7 +5,7 @@ export const ModalContext = createContext();
 export default function AuthProvider(props) {
   const { children } = props;
 
-  const [modal, setModal] = useState(true);
+  const [modal, setModal] = useState(false);
   const [content, setContent] = useState('logout');
 
   useEffect(() => {}, []);

@@ -3,6 +3,7 @@ import { FaTimes } from 'react-icons/fa';
 import { Container, Content } from './styles';
 import { ModalContext } from '../../ModalContext';
 import Logout from '../Logout';
+import Follows from '../Follows';
 
 export default function Modal() {
   const [modal, setModal, content, setContent] = useContext(ModalContext);
@@ -11,7 +12,7 @@ export default function Modal() {
       return <Logout />;
     }
     if (content == 'follows') {
-      return <h1>Follows</h1>;
+      return <Follows />;
     }
     if (content == 'following') {
       return <h1>Followin</h1>;

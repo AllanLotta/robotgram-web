@@ -7,6 +7,7 @@ import GlobalStyle from './styles/global';
 import AuthProvider from './AuthContext';
 import ModalProvider from './ModalContext';
 import UserProvider from './UserContext';
+import FileProvider from './FileContext';
 
 function App() {
   return (
@@ -14,10 +15,12 @@ function App() {
       <AuthProvider>
         <ModalProvider>
           <UserProvider>
-            <Router history={history}>
-              <Routes />
-              <GlobalStyle />
-            </Router>
+            <FileProvider>
+              <Router history={history}>
+                <Routes />
+                <GlobalStyle />
+              </Router>
+            </FileProvider>
           </UserProvider>
         </ModalProvider>
       </AuthProvider>

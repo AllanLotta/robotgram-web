@@ -1,20 +1,30 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
-import { FaSignOutAlt } from 'react-icons/fa';
+import { FaCog } from 'react-icons/fa';
 import { AuthContext } from '../../AuthContext';
+import { UserContext } from '../../UserContext';
+import { ModalContext } from '../../ModalContext';
 import { Container, Content } from './styles';
 import api from '../../services/api';
 
 export default function Profile({ match }) {
   const [token, setToken] = useContext(AuthContext);
+  const [modal, setModal, content, setContent] = useContext(ModalContext);
+  const [userId] = useContext(UserContext);
   const [user, setUser] = useState();
 
   function signOut() {
-    localStorage.setItem('token', '');
-    setToken(null);
-    return <Redirect to="/" />;
+    setModal(true);
+    setContent('logout');
   }
-
+  function callFollows() {
+    setModal(true);
+    setContent('follows');
+  }
+  function callFollowing() {
+    setModal(true);
+    setContent('following');
+  }
   useEffect(() => {
     const config = {
       headers: { Authorization: `bearer ${token}` },
@@ -37,17 +47,20 @@ export default function Profile({ match }) {
             <div className="info">
               <div className="username">
                 <p>{user.username}</p>
-                <button type="button">Edit Profile</button>
-                <FaSignOutAlt onClick={signOut} />
+                {user.id == userId ? (
+                  <button type="button">Edit Profile</button>
+                ) : null}
+
+                <FaCog onClick={signOut} />
               </div>
               <div className="count">
                 <p>
                   <strong>9</strong> posts
                 </p>
-                <p>
+                <p onClick={callFollows} className="itemCount">
                   <strong>870000</strong> followers
                 </p>
-                <p>
+                <p onClick={callFollowing} className="itemCount">
                   <strong>57</strong> following
                 </p>
               </div>
