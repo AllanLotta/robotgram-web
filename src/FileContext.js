@@ -6,11 +6,14 @@ export default function FileProvider(props) {
   const { children } = props;
 
   const [fileId, setFileId] = useState();
+  const [file, setFile] = useState();
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    console.log(fileId);
+  }, [fileId]);
 
   return (
-    <FileContext.Provider value={[fileId, setFileId]}>
+    <FileContext.Provider value={[file, setFile, fileId, setFileId]}>
       {children}
     </FileContext.Provider>
   );

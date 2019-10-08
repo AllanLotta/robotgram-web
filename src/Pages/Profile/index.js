@@ -48,10 +48,11 @@ export default function Profile({ match }) {
               <div className="username">
                 <p>{user.username}</p>
                 {user.id == userId ? (
-                  <button type="button">Edit Profile</button>
+                  <>
+                    <button type="button">Edit Profile</button>
+                    <FaCog onClick={signOut} />
+                  </>
                 ) : null}
-
-                <FaCog onClick={signOut} />
               </div>
               <div className="count">
                 <p>

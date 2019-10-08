@@ -1,12 +1,35 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import Upload from '../Upload';
 import { Container, Content } from './styles';
+import { FileContext } from '../../FileContext';
+import { AuthContext } from '../../AuthContext';
+import api from '../../services/api';
 
 export default function CreatePost() {
   const [create, setCreate] = useState(false);
+  const [description, setDescription] = useState();
+  const [file, setFile, fileId, setFileId] = useContext(FileContext);
+  const [token] = useContext(AuthContext);
 
-  function upload(e) {
-    console.log(e.target.files[0]);
+  async function send() {
+    const config = {
+      headers: { Authorization: `bearer ${token}` },
+    };
+
+    const post = {
+      file_id: fileId,
+      description,
+    };
+    console.log(post);
+
+    try {
+      const res = await api.post('/posts', post, config);
+      setCreate(false);
+      console.log(res);
+      return res;
+    } catch (error) {
+      return error;
+    }
   }
 
   return (
@@ -18,22 +41,21 @@ export default function CreatePost() {
         {create ? (
           <div className="create">
             <Upload />
-            {/* <div className="file-input-wrapper">
-              <button type="button" className="btn-file-input">
-                Select File
+
+            <textarea
+              name="description"
+              rows="10"
+              onChange={e => setDescription(e.target.value)}
+            />
+            {fileId ? (
+              <button type="submit" className="sendButton" onClick={send}>
+                Send
               </button>
-              <input
-                type="file"
-                name="file"
-                accept="image/*"
-                id="uploadFile"
-                onChange={upload}
-              />
-            </div> */}
-            <textarea name="description" rows="10" />
-            <button type="submit" className="sendButton">
-              Send
-            </button>
+            ) : (
+              <button type="submit" className="sendButton cantSend">
+                Send
+              </button>
+            )}
           </div>
         ) : null}
       </Content>

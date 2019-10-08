@@ -62,9 +62,15 @@ export const Content = styled.div`
       border: 1px solid #dbdbdb;
       border-radius: 4px;
       padding: 4px 4px;
-      background: transparent;
+      color: white;
+      background: #3897f0;
       cursor: pointer;
       margin-bottom: 20px;
+    }
+    .cantSend {
+      cursor: not-allowed;
+      background: transparent;
+      color: black;
     }
   }
 `;

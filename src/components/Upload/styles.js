@@ -10,6 +10,9 @@ export const Container = styled.div`
     }
     .uploadButton {
       margin-top: 10px;
+      :hover {
+        background: #dbdbdb;
+      }
     }
   }
   .fileButton {

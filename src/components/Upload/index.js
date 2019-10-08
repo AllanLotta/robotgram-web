@@ -5,9 +5,9 @@ import { FileContext } from '../../FileContext';
 import { Container } from './styles';
 
 export default function SimpleReactFileUpload() {
-  const [file, setFile] = useState();
+  const [file, setFile, fileId, setFileId] = useContext(FileContext);
   const [token] = useContext(AuthContext);
-  const [fileId, setFileId] = useContext(FileContext);
+  // const [fileId, setFileId] = useContext(FileContext);
 
   async function fileUpload(fileData) {
     const formData = new FormData();
@@ -21,16 +21,19 @@ export default function SimpleReactFileUpload() {
       },
     };
     const res = await api.post('/files', formData, config);
-    console.log(res);
-    setFileId(res.id);
-    console.log(fileId);
-    return res;
+    // console.log(res);
+    // setFileId(res.id);
+    // console.log(fileId);
+    // return res;
+    console.log(res.data.id);
+    setFileId(res.data.id);
   }
   function onFormSubmit(e) {
     e.preventDefault(); // Stop form submit
-    console.log('onFormSubmit', e);
+    // console.log('onFormSubmit', e);
     fileUpload(file).then(response => {
-      console.log(response.data);
+      // setFileId(response.data.id);
+      // console.log('FFFF', response.data);
     });
   }
 
@@ -38,7 +41,7 @@ export default function SimpleReactFileUpload() {
     <>
       <Container>
         <form onSubmit={onFormSubmit}>
-          <p className="filename">Select a photo</p>
+          <p className="filename">{file ? file.file.name : 'Select a photo'}</p>
           <div className="fileButton">
             <input
               type="file"
