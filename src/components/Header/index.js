@@ -7,7 +7,7 @@ export default function Header() {
     <Container>
       <Content>
         <div className="logo">
-          <p>Robotogram</p>
+          <p>Robotgram</p>
         </div>
         <div className="actions">
           <FaUser />

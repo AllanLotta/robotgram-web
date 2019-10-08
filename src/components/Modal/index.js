@@ -2,12 +2,13 @@ import React, { useContext } from 'react';
 import { FaTimes } from 'react-icons/fa';
 import { Container, Content } from './styles';
 import { ModalContext } from '../../ModalContext';
+import Logout from '../Logout';
 
 export default function Modal() {
   const [modal, setModal, content, setContent] = useContext(ModalContext);
   function renderContent() {
     if (content == 'logout') {
-      return <h1>Logout</h1>;
+      return <Logout />;
     }
     if (content == 'follows') {
       return <h1>Follows</h1>;

@@ -3,9 +3,11 @@ import { Link } from 'react-router-dom';
 import { Form, Input } from '@rocketseat/unform';
 import api from '../../services/api';
 import { AuthContext } from '../../AuthContext';
+import { UserContext } from '../../UserContext';
 
 function SignIn() {
-  const [token, setToken, userId, setUserId] = useContext(AuthContext);
+  const [token, setToken] = useContext(AuthContext);
+  const [userId, setUserId] = useContext(UserContext);
 
   async function handleSubmit(data) {
     console.log(data);
