@@ -11,7 +11,9 @@ export default function Header() {
     <Container>
       <Content>
         <div className="logo">
-          <p>Robotgram</p>
+          <Link to="/home">
+            <p>Robotgram</p>
+          </Link>
         </div>
         <div className="actions">
           <Link to={`/profile/${userId}`}>

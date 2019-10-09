@@ -4,6 +4,7 @@ import { Container, Content } from './styles';
 import { ModalContext } from '../../ModalContext';
 import Logout from '../Logout';
 import Follows from '../Follows';
+import Following from '../Following';
 
 export default function Modal() {
   const [modal, setModal, content, setContent] = useContext(ModalContext);
@@ -15,8 +16,9 @@ export default function Modal() {
       return <Follows />;
     }
     if (content == 'following') {
-      return <h1>Followin</h1>;
+      return <Following />;
     }
+    return null;
   }
   return (
     <Container>

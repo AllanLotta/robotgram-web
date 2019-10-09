@@ -6,6 +6,7 @@ export default function UserProvider(props) {
   const { children } = props;
 
   const [userId, setUserId] = useState();
+  const [postLoad, setPostLoad] = useState(false);
 
   useEffect(() => {
     const userIdLocal = localStorage.getItem('userId');
@@ -19,7 +20,7 @@ export default function UserProvider(props) {
   }, [userId]);
 
   return (
-    <UserContext.Provider value={[userId, setUserId]}>
+    <UserContext.Provider value={[userId, setUserId, postLoad, setPostLoad]}>
       {children}
     </UserContext.Provider>
   );

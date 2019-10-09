@@ -3,12 +3,15 @@ import Upload from '../Upload';
 import { Container, Content } from './styles';
 import { FileContext } from '../../FileContext';
 import { AuthContext } from '../../AuthContext';
+import { UserContext } from '../../UserContext';
 import api from '../../services/api';
 
 export default function CreatePost() {
   const [create, setCreate] = useState(false);
   const [description, setDescription] = useState();
   const [file, setFile, fileId, setFileId] = useContext(FileContext);
+  const [userId, setUserId, postLoad, setPostLoad] = useContext(UserContext);
+
   const [token] = useContext(AuthContext);
 
   async function send() {
@@ -25,6 +28,7 @@ export default function CreatePost() {
     try {
       const res = await api.post('/posts', post, config);
       setCreate(false);
+      setPostLoad(!postLoad);
       console.log(res);
       return res;
     } catch (error) {

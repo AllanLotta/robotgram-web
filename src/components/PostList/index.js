@@ -1,12 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../AuthContext';
+import { UserContext } from '../../UserContext';
 import { Container, Card } from './styles';
 import api from '../../services/api';
 
 export default function PostList() {
   const [posts, setPosts] = useState();
   const [token] = useContext(AuthContext);
+  const [userId, setUserId, postLoad, setPostLoad] = useContext(UserContext);
 
   useEffect(() => {
     const config = {
@@ -18,7 +20,7 @@ export default function PostList() {
       console.log(res.data);
     }
     getPosts();
-  }, [token]);
+  }, [token, postLoad]);
 
   return (
     <Container>

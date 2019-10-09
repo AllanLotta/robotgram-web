@@ -7,8 +7,9 @@ import { UserContext } from '../../UserContext';
 
 export default function Recomended() {
   const [users, setUsers] = useState();
+  const [load, setLoad] = useState(false);
   const [token] = useContext(AuthContext);
-  const [userId] = useContext(UserContext);
+  const [userId, setUserId, postLoad, setPostLoad] = useContext(UserContext);
   async function follow(id) {
     const config = {
       headers: { Authorization: `bearer ${token}` },
@@ -18,6 +19,8 @@ export default function Recomended() {
       { follower_id: id },
       config
     );
+    setPostLoad(!postLoad);
+    setLoad(!load);
     console.log(res);
   }
   useEffect(() => {
@@ -29,7 +32,7 @@ export default function Recomended() {
       setUsers(res.data);
     }
     getUsers();
-  }, [token]);
+  }, [token, load]);
   return (
     <>
       <Title>Suggestions For You: </Title>

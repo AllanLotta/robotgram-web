@@ -4,14 +4,30 @@ import { FaCog } from 'react-icons/fa';
 import { AuthContext } from '../../AuthContext';
 import { UserContext } from '../../UserContext';
 import { ModalContext } from '../../ModalContext';
+import { FollowContext } from '../../FollowContext';
 import { Container, Content } from './styles';
 import api from '../../services/api';
 
 export default function Profile({ match }) {
   const [token, setToken] = useContext(AuthContext);
-  const [modal, setModal, content, setContent] = useContext(ModalContext);
+  const [
+    modal,
+    setModal,
+    content,
+    setContent,
+    routerUserId,
+    setRouterUserId,
+  ] = useContext(ModalContext);
+  const [
+    followsCount,
+    setFollowsCount,
+    followingCount,
+    setFollowingCount,
+  ] = useContext(FollowContext);
   const [userId] = useContext(UserContext);
   const [user, setUser] = useState();
+  const [follows, setFollows] = useState([]);
+  const [following, setFollowing] = useState([]);
 
   function signOut() {
     setModal(true);
@@ -26,6 +42,7 @@ export default function Profile({ match }) {
     setContent('following');
   }
   useEffect(() => {
+    setRouterUserId(match.params.id);
     const config = {
       headers: { Authorization: `bearer ${token}` },
     };
@@ -34,8 +51,29 @@ export default function Profile({ match }) {
       console.log(res);
       setUser(res.data);
     }
+    async function getFollows() {
+      const res = await api.get(`/user/${routerUserId}/follows`, config);
+      // setFollows(res.data);
+      setFollowsCount(res.data.length);
+      console.log(res);
+    }
+    async function getFollowing() {
+      const res = await api.get(`/user/${routerUserId}/follower`, config);
+      // setFollowing(res.data);
+      setFollowingCount(res.data.length);
+      console.log(res);
+    }
+    getFollows();
+    getFollowing();
     getUser();
-  }, [match.params.id, token]);
+  }, [
+    match.params.id,
+    routerUserId,
+    setFollowingCount,
+    setFollowsCount,
+    setRouterUserId,
+    token,
+  ]);
   return (
     <Container>
       <Content>
@@ -59,10 +97,10 @@ export default function Profile({ match }) {
                   <strong>9</strong> posts
                 </p>
                 <p onClick={callFollows} className="itemCount">
-                  <strong>870000</strong> followers
+                  <strong>{followsCount}</strong> followers
                 </p>
                 <p onClick={callFollowing} className="itemCount">
-                  <strong>57</strong> following
+                  <strong>{followingCount}</strong> following
                 </p>
               </div>
               <div className="name">

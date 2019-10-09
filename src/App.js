@@ -8,6 +8,7 @@ import AuthProvider from './AuthContext';
 import ModalProvider from './ModalContext';
 import UserProvider from './UserContext';
 import FileProvider from './FileContext';
+import FollowProvider from './FollowContext';
 
 function App() {
   return (
@@ -16,10 +17,12 @@ function App() {
         <ModalProvider>
           <UserProvider>
             <FileProvider>
-              <Router history={history}>
-                <Routes />
-                <GlobalStyle />
-              </Router>
+              <FollowProvider>
+                <Router history={history}>
+                  <Routes />
+                  <GlobalStyle />
+                </Router>
+              </FollowProvider>
             </FileProvider>
           </UserProvider>
         </ModalProvider>
