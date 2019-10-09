@@ -6,6 +6,7 @@ import { UserContext } from '../../UserContext';
 import { ModalContext } from '../../ModalContext';
 import { FollowContext } from '../../FollowContext';
 import { Container, Content } from './styles';
+import UserPosts from '../../components/UserPosts';
 import api from '../../services/api';
 
 export default function Profile({ match }) {
@@ -26,6 +27,8 @@ export default function Profile({ match }) {
   ] = useContext(FollowContext);
   const [userId] = useContext(UserContext);
   const [user, setUser] = useState();
+  const [posts, setPosts] = useState([]);
+  const [postsCounts, setPostsCounts] = useState();
   const [follows, setFollows] = useState([]);
   const [following, setFollowing] = useState([]);
 
@@ -48,24 +51,27 @@ export default function Profile({ match }) {
     };
     async function getUser() {
       const res = await api.get(`users/${match.params.id}`, config);
-      console.log(res);
       setUser(res.data);
+    }
+    async function getPosts() {
+      const res = await api.get(`/user/${match.params.id}/posts`, config);
+      setPostsCounts(res.data.length);
+      setPosts(res.data);
     }
     async function getFollows() {
       const res = await api.get(`/user/${routerUserId}/follows`, config);
       // setFollows(res.data);
       setFollowsCount(res.data.length);
-      console.log(res);
     }
     async function getFollowing() {
       const res = await api.get(`/user/${routerUserId}/follower`, config);
       // setFollowing(res.data);
       setFollowingCount(res.data.length);
-      console.log(res);
     }
+    getUser();
     getFollows();
     getFollowing();
-    getUser();
+    getPosts();
   }, [
     match.params.id,
     routerUserId,
@@ -87,14 +93,14 @@ export default function Profile({ match }) {
                 <p>{user.username}</p>
                 {user.id == userId ? (
                   <>
-                    <button type="button">Edit Profile</button>
+                    {/* <button type="button">Edit Profile</button> */}
                     <FaCog onClick={signOut} />
                   </>
                 ) : null}
               </div>
               <div className="count">
                 <p>
-                  <strong>9</strong> posts
+                  <strong>{postsCounts}</strong> posts
                 </p>
                 <p onClick={callFollows} className="itemCount">
                   <strong>{followsCount}</strong> followers
@@ -107,6 +113,7 @@ export default function Profile({ match }) {
                 <p>{user.fullname}</p>
               </div>
               <div className="bio">{user.bio}</div>
+              <UserPosts />
             </div>
           </>
         ) : (

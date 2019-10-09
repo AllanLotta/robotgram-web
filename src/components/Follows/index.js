@@ -48,12 +48,18 @@ export default function Follows() {
             {follows.map(user => (
               <div className="card" key={user.id}>
                 <div className="avatar">
-                  <Link to={`/profile/${user.user.id}`}>
-                    <img src={user.user.avatar} alt="" width="100%" />
+                  <Link
+                    onClick={() => setModal(!modal)}
+                    to={`/profile/${user.userFollowed.id}`}
+                  >
+                    <img src={user.userFollowed.avatar} alt="" width="100%" />
                   </Link>
                 </div>
-                <Link to={`/profile/${user.user.id}`}>
-                  <p>{user.user.username}</p>
+                <Link
+                  onClick={() => setModal(!modal)}
+                  to={`/profile/${user.userFollowed.id}`}
+                >
+                  <p>{user.userFollowed.username}</p>
                 </Link>
                 {/* <button type="button">Follow</button> */}
               </div>

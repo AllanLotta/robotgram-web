@@ -49,9 +49,11 @@ export default function SimpleReactFileUpload() {
               onChange={e => setFile({ file: e.target.files[0] })}
             />
           </div>
-          <button className="uploadButton" type="submit">
-            Upload
-          </button>
+          {file ? (
+            <button className="uploadButton" type="submit">
+              Upload
+            </button>
+          ) : null}
         </form>
       </Container>
     </>
